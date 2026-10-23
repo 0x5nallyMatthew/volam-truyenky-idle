@@ -24,6 +24,33 @@ const crypto = require("crypto");
 
 const DIR = __dirname;
 
+// ---- Loader .env (không cần thư viện ngoài) ----
+// Đọc key từ file .env nếu biến môi trường cũng chính đó chưa được set trước.
+// Thứ tự: .env ở thư mục gốc dự án trước, rồi .env trong thư mục server.
+function loadEnvFile(file) {
+  try {
+    if (!fs.existsSync(file)) return;
+    const lines = fs.readFileSync(file, "utf8").split(/\r?\n/);
+    for (let raw of lines) {
+      const line = raw.trim();
+      if (!line || line.startsWith("#")) continue;
+      const eq = line.indexOf("=");
+      if (eq < 1) continue;
+      const key = line.slice(0, eq).trim();
+      let val = line.slice(eq + 1).trim();
+      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+        val = val.slice(1, -1);
+      }
+      if (!key || key in process.env) continue; // biến môi trường thật luôn thắng
+      process.env[key] = val;
+    }
+  } catch (e) {
+    console.warn("Không đọc được file .env:", file, e.message);
+  }
+}
+loadEnvFile(path.resolve(DIR, "..", ".env"));
+loadEnvFile(path.join(DIR, ".env"));
+
 function readJSON(file) {
   try {
     return JSON.parse(fs.readFileSync(file, "utf8"));
