@@ -517,15 +517,7 @@ function pickFaction() {
     "Hệ Thổ: Có thể gia nhập Võ Đang (Chính phái) hoặc Côn Lôn (Trung lập). Kiếm khí lôi đình, nội lực hộ thể huyền diệu, quyền pháp vô song."
   ];
 
-  // Đảm bảo người dùng phải đăng nhập tài khoản trước khi vào Tạo Nhân Vật
-  if (typeof netEnsureUser == "function") {
-    let hasUser = !1;
-    try { hasUser = !!localStorage.getItem("jx2_auth_user"); } catch {}
-    if (!hasUser) {
-      if (typeof netModal == "function") netModal("acc");
-      return;
-    }
-  }
+  // Bỏ kiểm tra bắt buộc đăng nhập -> cho vào tạo nhân vật offline luôn
 
   // Đóng modal cũ nếu có
   closeModal(true);
