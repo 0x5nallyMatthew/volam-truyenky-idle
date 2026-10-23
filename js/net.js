@@ -1220,7 +1220,7 @@ async function netInit() {
     netCheckCloud().catch(() => {});
   } else {
     // Chưa đăng nhập: Mở ngay giao diện đăng nhập / đăng ký
-    netModal("acc");
+    // netModal("acc");
   }
 }
 
