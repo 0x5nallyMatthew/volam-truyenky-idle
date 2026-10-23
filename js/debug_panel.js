@@ -15,7 +15,7 @@
     if (document.getElementById("dbgFab")) return;
     const fab = document.createElement("button");
     fab.id = "dbgFab";
-    fab.textContent = "Test";
+    fab.textContent = "MODE THANH HÓA BROOOO";
     fab.style.cssText = "position:fixed;left:50%;transform:translateX(-50%);bottom:92px;z-index:9999;padding:6px 14px;border-radius:14px;border:1px solid #e6c67a;background:#1a221e;color:#ffe08a;font:700 12px Tahoma,Arial,sans-serif;cursor:pointer;box-shadow:0 2px 8px #000a;";
     document.body.appendChild(fab);
 
@@ -23,17 +23,15 @@
     panel.id = "dbgPanel";
     panel.style.cssText = "position:fixed;left:50%;transform:translateX(-50%);bottom:128px;z-index:9999;display:none;flex-direction:column;gap:6px;padding:10px;border-radius:8px;border:1px solid #e6c67a;background:#0d1318;box-shadow:0 4px 16px #000c;min-width:220px;align-items:stretch;";
     panel.innerHTML = `
-      <div style="color:#e6c67a;font:700 13px Tahoma,Arial,sans-serif;margin-bottom:4px;text-align:center">Bang Test</div>
-      <button class="btn sm" data-dbg="lvl180">Thang cap 180</button>
-      <button class="btn sm" data-dbg="items">Hien thi tat ca vat pham</button>
-      <button class="btn sm" data-dbg="faction">Doi mon phai</button>
-      <button class="btn sm" data-dbg="books">Mat tich / Ky nang tran phai</button>
-      <button class="btn sm" data-dbg="horse">Ruong ngua</button>
-      <button class="btn sm" data-dbg="vip" style="background:#3a2a10;border-color:#ffd24a;color:#ffd24a">Lay do VIP (Hoang Kim)</button>
-      <button class="btn sm" data-dbg="hoangkim90" style="background:#2a1a3a;border-color:#c896ff;color:#c896ff">Bo Hoang Kim 90</button>
-      <button class="btn sm" data-dbg="equipbest" style="background:#1a3a2a;border-color:#6aff9a;color:#9affc8">Mac do tot nhat</button>
-      <button class="btn sm" data-dbg="unequip" style="background:#3a1a1a;border-color:#ff6a6a;color:#ff9a9a">Thao het do dang mac</button>
-      <button class="btn sm" data-dbg="close" style="margin-top:4px">Dong</button>
+      <div style="color:#e6c67a;font:700 13px Tahoma,Arial,sans-serif;margin-bottom:4px;text-align:center">Mode THANH HÓA?</div>
+      <button class="btn sm" data-dbg="lvl180">Tăng lên cấp 180</button>
+      <button class="btn sm" data-dbg="items">Danh sách vật phẩm</button>
+      <button class="btn sm" data-dbg="faction">Đổi môn phái</button>
+      <button class="btn sm" data-dbg="books">Mật tịch / Kỹ năng trấn phái</button>
+      <button class="btn sm" data-dbg="horse">Rương ngựa</button>
+      <button class="btn sm" data-dbg="hoangkim90" style="background:#2a1a3a;border-color:#c896ff;color:#c896ff">Lấy đồ Hoàng Kim 90</button>
+      <button class="btn sm" data-dbg="equipbest" style="background:#1a3a2a;border-color:#6aff9a;color:#9affc8">Lên đồ</button>
+      <button class="btn sm" data-dbg="unequip" style="background:#3a1a1a;border-color:#ff6a6a;color:#ff9a9a">Tháo đồ</button>
     `;
     document.body.appendChild(panel);
 
