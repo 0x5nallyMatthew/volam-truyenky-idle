@@ -33,7 +33,7 @@ function tkCampGo(){const n=tkCampNpc();if(!n||R.deadT>0)return;R.tk.visitMedic=
 function tkCampVisit(dt){
  const K=R.tk,n=tkCampNpc();if(!K?.visitMedic||!n)return false;
  if(Math.hypot(H.x-n.x,H.y-n.y)<=65){K.visitMedic=false;shopTab='med';shopModal();return true;}
- obsSteer(H,n.x,n.y,heroMoveSpeed()*dt);return true;
+ obsSteer(H,n.x,n.y,(typeof heroMoveSpeed==='function'?heroMoveSpeed():150*R.P.speed)*dt);return true;
 }
 function tkCampDraw(c){const n=tkCampNpc();if(!n)return;drawAnim(n.anim,'st',4,performance.now()/1000,n.x,n.y,MON_SCALE);label(n.x,n.y-58,'Quân y · Mua thuốc','#a9ffc0',12);}
 function realTkMessage(m){
@@ -84,13 +84,13 @@ function realTkTick(dt){
  K.t=m.phase==='running'?Math.min(TK_DUR,(m.now-m.start+Date.now()-K.clockAt)/1000):0;
  for(const p of K.u)if(p!==me){p._x=p.x;p._y=p.y;p.x+=(p.tx-p.x)*Math.min(1,dt*8);p.y+=(p.ty-p.y)*Math.min(1,dt*8);p.moving=p.act==='run';}
  if(K.phase==='running'&&me.hp>0){
-  kcTick(H,dt);const visiting=tkCampVisit(dt);if(!visiting){if(H.jump)kcBusy(H,dt);else if(manual())moveManual(dt);}
+  kcTick(H,dt);const visiting=tkCampVisit(dt);if(!visiting){if(H.jump)kcBusy(H,dt);else if(manual())moveManual(dt*Math.max(0,window.GAME_SPEED??1));}
   const targets=K.u.filter(p=>p.side!==K.side&&p.hp>0&&p.connected&&(manual()||Math.hypot(p.x-H.x,p.y-H.y)<=1000*(R.P.vision||120)/120)),e=targets.reduce((a,b)=>!a||Math.hypot(b.x-H.x,b.y-H.y)<Math.hypot(a.x-H.x,a.y-H.y)?b:a,null);
   if(e&&!H.jump&&!visiting){const a=pickAttack(R.P,false),d=Math.hypot(e.x-H.x,e.y-H.y);if(!manual()&&d>a.rad+18)obsSteer(H,e.x,e.y,typeof heroMoveSpeed==='function'?heroMoveSpeed()*dt:150*R.P.speed*dt);
    RealTK.atk-=dt*(R.freezeT>0?.5:1);if(RealTK.atk<=0&&d<=a.rad+24&&(!manual()||manAtkOk())){realTkSend({op:'attack',skill:a.id,target:e.id});RealTK.atk=1/a.rate;}}
   if(Date.now()-RealTK.lastMove>=200){RealTK.lastMove=Date.now();realTkSend({op:'move',x:H.x,y:H.y,dir:H.dir||0,jump:!!H.jump});}
  }else if(K.phase==='waiting'){
-  if(!tkCampVisit(dt))moveManual(dt);
+  if(!tkCampVisit(dt))moveManual(dt*Math.max(0,window.GAME_SPEED??1));
   if(Date.now()-RealTK.lastMove>=200){RealTK.lastMove=Date.now();realTkSend({op:'move',x:H.x,y:H.y,dir:H.dir||0});}
  }
  me.x=H.x;me.y=H.y;H.z=H.jump?H.z:0;if((K.hudT-=dt)<=0){K.hudT=.25;tkHudUpdate();}

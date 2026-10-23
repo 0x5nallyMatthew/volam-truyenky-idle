@@ -201,7 +201,22 @@
 
       const weaponCands = JX.sets.gold.filter(function(g) { return g.d === 0 || g.d === 1; });
       weaponCands.sort(function(a, b) { return (b.k - a.k) || (b.lvl - a.lvl); });
-      if (weaponCands.length) picked.push(weaponCands[0]);
+      // Vu khi cung pham voi mon phai: moi loai (Con/Dao/Thuong/Tien...) 1 mon, dong bang Hoang Kim 90 (cua 80-99)
+      const wFac = JX.factions.find(function(f) { return f.key === S.fac; }) || {};
+      const wFacId = wFac.id;
+      const wpLv = function(r) { const e = (r.req || []).find(function(q) { return q[0] === 36; }); return e ? e[1] : 0; };
+      const wpFacOf = function(r) { const e = (r.req || []).find(function(q) { return q[0] === 39; }); return e ? e[1] : -1; };
+      if (wFacId != null) {
+        const wpAll = weaponCands.filter(function(r) { return wpFacOf(r) === wFacId && wpLv(r) >= 80 && wpLv(r) <= 99 && r.n.indexOf("[") < 0; });
+        const wpBest = {};
+        for (const r of wpAll) {
+          const cur = wpBest[r.k];
+          if (!cur || wpLv(r) > wpLv(cur) || (wpLv(r) === wpLv(cur) && r.k > cur.k)) wpBest[r.k] = r;
+        }
+        const wpPicks = Object.values(wpBest).sort(function(a, b) { return wpLv(b) - wpLv(a) || (b.k - a.k); });
+        if (wpPicks.length) { for (const r of wpPicks) picked.push(r); }
+        else picked.push(weaponCands[0]);
+      } else if (weaponCands.length) picked.push(weaponCands[0]);
 
       const armorCands = JX.sets.gold.filter(function(g) { return g.d === 2; });
       armorCands.sort(function(a, b) { return (b.k - a.k) || (b.lvl - a.lvl); });

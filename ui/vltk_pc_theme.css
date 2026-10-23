@@ -841,7 +841,7 @@ html.ptclosed body #u20ct button[data-lt="party"],
 .u20r-row {
   display: flex !important;
   align-items: center !important;
-  justify-content: flex-start !important;
+  justify-content: center !important;
   gap: 5px !important;
 }
 
@@ -865,6 +865,9 @@ html.ptclosed body #u20ct button[data-lt="party"],
 #u20act:hover {
   box-shadow: 0 0 10px rgba(106, 154, 255, 0.7) !important;
 }
+
+/* Khôi phục selector bị mất: .guild-content */
+.guild-content {
   display: flex;
   flex-direction: column;
   gap: 12px;
