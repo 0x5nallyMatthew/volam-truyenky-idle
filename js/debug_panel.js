@@ -12,7 +12,7 @@
   if (!isDebugAllowed()) return;
 
   function ensurePanel() {
-    if (document.getElementById("dbgFab")) return;
+    // if (document.getElementById("dbgFab")) return;
     const fab = document.createElement("button");
     fab.id = "dbgFab";
     fab.textContent = "MODE THANH HÓA BROOOO";
